@@ -1,7 +1,10 @@
 <template>
   <div>
+
+    <coinTracker></coinTracker>
+
     <!-- TradingView Widget BEGIN -->
-    <div class="tradingview-widget-container">
+    <!-- <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
       <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE"
           rel="noopener" target="_blank"><span class="blue-text">BTCUSDT analysis</span></a> by TradingView</div>
@@ -18,7 +21,7 @@
     "colorTheme": "dark"
   }
       </script>
-    </div>
+    </div> -->
     <!-- TradingView Widget END -->
   </div>
 </template>
@@ -28,6 +31,7 @@ import { onMounted, computed } from "vue";
 import { logger } from "../utils/Logger";
 import { bbandsService } from "../services/BbandsService"
 import { AppState } from "../AppState"
+import coinTracker from "../components/coinTracker.vue"
 
 export default {
   setup() {
@@ -52,7 +56,8 @@ export default {
       bbands: computed(() => AppState.bbands)
 
     }
-  }
+  },
+  components: { coinTracker }
 }
 </script>
 
