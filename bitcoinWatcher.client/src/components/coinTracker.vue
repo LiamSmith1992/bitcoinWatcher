@@ -1,7 +1,8 @@
 <template>
   <div class="component">
     <h1>this is coin tracker</h1>
-    <h5>smaller</h5>
+    <h5>smaller</h5>\
+    <h1>{{ btc }}</h1>
   </div>
 </template>
 
@@ -25,7 +26,8 @@ export default {
         const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
         const data = await response.json();
         const price = data.bitcoin.usd;
-        console.log(`Current Bitcoin price: $${price}`);
+        console.log(`Current Bitcoin price: $${price}`, price.data);
+        AppState.btcPrice = price.data
       } catch (error) {
         console.log('Error fetching Bitcoin price', error);
       }
@@ -36,7 +38,7 @@ export default {
 
 
     return {
-
+      btc: computed(() => AppState.btcPrice)
 
     };
 
