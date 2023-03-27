@@ -1,58 +1,48 @@
 <template>
   <div class="component">
     <h1>this is coin tracker</h1>
-
+    <h5>smaller</h5>
   </div>
 </template>
 
 
-<script lang="ts">
+<script >
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { logger } from '../utils/Logger.js';
 export default {
   setup() {
     onMounted(() => {
-      grabPrices("BTC-USD");
+      getBitcoinPrice();
 
     })
 
-    const props = defineProps<{
-      pair?: string;
-      background: string;
-    }>();
-    const url = "https://api.coinbase.com/v2/prices";
-    const btcPair = 'BTC-USD';
-    const ethPair = 'ETH-USD';
-    const btc = reactive({} as moneyFormat)
-    const eth = reactive({} as moneyFormat)
+    // const fetch = require('node-fetch');
 
-    interface moneyFormat {
-      formatted: String;
-      money: number;
-      name: string;
+    // Function to fetch current price of Bitcoin
+    const getBitcoinPrice = async () => {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+        const data = await response.json();
+        const price = data.bitcoin.usd;
+        console.log(`Current Bitcoin price: $${price}`);
+      } catch (error) {
+        console.log('Error fetching Bitcoin price', error);
+      }
     }
 
-    async function grabPrices(pair: string): Promise<moneyFormat> {
+    // Call the function to fetch current Bitcoin price
+    getBitcoinPrice();
 
-      const btcInfo = await fetch(url + '/' + pair + '/spot')
-      const money = await btcInfo.json();
-
-      return {
-
-        money: parseFloat(money.data.amount),
-        formatted: new Intl.NumberFormat("en-us", {
-          style: "currency",
-          currency: "USD"
-        }).format(money.data.amount),
-        name: pair.split("-")[0],
-
-      };
-
-    }
 
     return {
-    }
+
+
+    };
+
+
+
+
   }
 };
 </script>
