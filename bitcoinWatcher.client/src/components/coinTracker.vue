@@ -1,8 +1,16 @@
 <template>
-  <div class="component">
-    <h1>this is coin tracker</h1>
-    <h5>smaller</h5>\
-    <h1>{{ btc }}</h1>
+  <div class="component row">
+    <h1 class="text-info text-center fw-bold">this is coin tracker</h1>
+
+  </div>
+  <br>
+  <br>
+  <div class="">
+    <h3>BTC Current Price</h3>
+    <div class="col-3 d-flex justify-content-center">
+      <h1 class="text-primary border text-center ">{{ btc }}</h1>
+    </div>
+
   </div>
 </template>
 
@@ -27,7 +35,7 @@ export default {
         const data = await response.json();
         const price = data.bitcoin.usd;
         console.log(`Current Bitcoin price: $${price}`, price.data);
-        AppState.btcPrice = price.data
+        AppState.btcPrice = price
       } catch (error) {
         console.log('Error fetching Bitcoin price', error);
       }
@@ -50,4 +58,8 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.border {
+  border: 9px solid;
+}
+</style>
